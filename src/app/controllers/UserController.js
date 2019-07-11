@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 import User from '../models/User';
 
 class UserController {
+  // CRIAR USUÁRIO
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -22,10 +23,13 @@ class UserController {
     if (userExists) {
       return res.status(400).json({ error: 'Email já cadastrado' });
     }
-    const user = await User.create(req.body);
-    return res.json(user);
+    const { id, name, email, provider, createdAt } = await User.create(
+      req.body
+    );
+    return res.json({ id, name, email, provider, createdAt });
   }
 
+  // ATUALIZAR USUÁRIO
   async update(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string(),
