@@ -4,6 +4,7 @@ import Meetup from '../models/Meetups';
 import User from '../models/User';
 
 class MeetupsController {
+  // CADASTRAR MEETUP
   async store(req, res) {
     // VALIDAÇÃO DO FORMULÁRIO
     const schema = Yup.object().shape({
@@ -25,9 +26,7 @@ class MeetupsController {
 
     // BUSCA OS DADOS DO USUÁRIO A PARTIR DO ID DISPONIVEL NO req.userId
     // CRIADA NO ARQUIVO SessionController.js
-    const { id: user_id, name: nameUser, email } = await User.findByPk(
-      req.userId
-    );
+    const user_id = req.userId;
 
     // eslint-disable-next-line no-console
     console.log({
@@ -37,8 +36,6 @@ class MeetupsController {
       data,
       banner_id,
       user_id,
-      nameUser,
-      email,
     });
 
     // GRAVAR AS INFORMAÇÕES NO BANCO DE DADOS
@@ -52,6 +49,11 @@ class MeetupsController {
     });
 
     return res.json(meetups);
+  }
+
+  // FIM CADASTRO MEETUP
+  async update(req, res) {
+    return res.json({ ok: true });
   }
 }
 export default new MeetupsController();
